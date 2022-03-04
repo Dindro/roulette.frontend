@@ -114,18 +114,17 @@ export default {
 			this.selectedRouletteOption = value;
 			this.informerShown = true;
 
-			if (this.rouletteOptions.length === 1) {
-				const unwatchInformerShown = this.$watch('informerShown', () => {
-					if (!this.informerShown) {
-						unwatchInformerShown();
+			const unwatchInformerShown = this.$watch('informerShown', () => {
+				if (!this.informerShown) {
+					unwatchInformerShown();
+
+					if (this.rouletteOptions.length === 1) {
 						this.endShown = true;
+					} else {
+						this.execludeRouletteOption(value);
 					}
-				});
-			} else {
-				setTimeout(() => {
-					this.execludeRouletteOption(value);
-				}, 500);
-			}
+				}
+			});
 		},
 
 		execludeRouletteOption(value) {
